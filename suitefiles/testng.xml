@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Regress" parallel="classes" verbose="1" thread-count = "2">
+    <test name="ALL">
+        <classes>
+            <class name="org.exsel.example.menu.TestMenu"></class>
+
+        </classes>
+    </test>
+</suite>
