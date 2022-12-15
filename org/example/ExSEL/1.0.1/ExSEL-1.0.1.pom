@@ -127,6 +127,11 @@
             <artifactId>selenide</artifactId>
             <version>6.8.1</version>
         </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.htmlelements</groupId>
+            <artifactId>htmlelements-java</artifactId>
+            <version>1.20.0</version>
+        </dependency>
 
     </dependencies>
 
