@@ -127,11 +127,11 @@
             <artifactId>selenide</artifactId>
             <version>6.9.0</version>
         </dependency>
-        <dependency>
+ <!--       <dependency>
             <groupId>ru.yandex.qatools.htmlelements</groupId>
             <artifactId>htmlelements-java</artifactId>
             <version>1.20.0</version>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 
