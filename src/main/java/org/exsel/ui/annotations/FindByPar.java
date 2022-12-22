@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
-public @interface FindByParametrised {
+public @interface FindByPar {
     String xpath() default ".";
     String param1() default "null";
     String param2() default "null";

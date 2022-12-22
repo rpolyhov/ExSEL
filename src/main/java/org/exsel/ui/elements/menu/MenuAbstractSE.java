@@ -1,14 +1,14 @@
 package org.exsel.ui.elements.menu;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.SelenideElement;
 import org.exsel.ui.annotations.IParentable;
+import org.exsel.ui.ElementsContainerWrapper;
 
 import java.time.Duration;
 import java.util.LinkedList;
 
-public abstract class MenuAbstractSE extends ElementsContainer implements IParentable {
+public abstract class MenuAbstractSE extends ElementsContainerWrapper implements IParentable {
     private Object parent;
     protected abstract boolean isExpanded();
     protected abstract boolean isCollapsed();

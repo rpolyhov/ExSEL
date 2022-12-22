@@ -10,16 +10,13 @@ public  class MenuBlockSE extends MenuAbstractSE  {
     public String getXpathExpandElement() {
         return ".";
     }
-
     protected boolean isExpanded() {
         return getExpandElement().$x("/ul").is(Condition.visible);
     }
-
     protected boolean isCollapsed() {
         return isExpanded();
     }
-    protected void expand(){
-        if (!isExpanded()) getExpandElement().hover();
+    protected void expand(){if (!isExpanded()) getExpandElement().hover();
     }
 
 }
