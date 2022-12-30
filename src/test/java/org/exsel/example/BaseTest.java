@@ -1,9 +1,10 @@
 package org.exsel.example;
 
+import org.exsel.ui.config.TestConfigState;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
-import static com.codeborne.selenide.Selenide.open;
+import static io.qameta.allure.aspects.StepsAspects.maxTimeoutInt;
 
 public class BaseTest {
     protected AppManager app;
@@ -17,6 +18,14 @@ public class BaseTest {
     @BeforeClass
     public void beforeClass(){
 
+
+    }
+    public static int getMaxTimeout() {
+        try {
+            return maxTimeoutInt.get();
+        } catch (NullPointerException|NoSuchFieldError n) {
+            return TestConfigState.getMaxTimeout();
+        }
 
     }
 }

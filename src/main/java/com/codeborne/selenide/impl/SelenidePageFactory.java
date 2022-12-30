@@ -84,7 +84,6 @@ public class SelenidePageFactory implements PageObjectFactory {
             if (!isInitialized(page, field)) {
                 By selector;
                 String xpath;
-                System.out.println("ХаХАХА");
                 if (field.getName().equals("parent"))
                     break;
                 if (isFindByParametrisedAnnotationPresent(field)) {

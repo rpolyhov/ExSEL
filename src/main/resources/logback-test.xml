@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS,GMT+3} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="FILE-1" class="ch.qos.logback.core.FileAppender">
+        <file>target/driver-debug.log</file>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <!--            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+3} %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE-2" class="ch.qos.logback.core.FileAppender">
+        <file>target/api-debug.log</file>
+        <append>false</append>
+        <encoder>
+            <!--      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level - %msg%n</pattern>-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+3} [%thread] %-5p %c{3}:%L - %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE-3" class="ch.qos.logback.core.FileAppender">
+        <file>target/test-debug.log</file>
+        <append>true</append>
+        <encoder>
+            <!--      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level - %msg%n</pattern>-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+3} [%thread] %-5p %c{3}:%L - %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE-4" class="ch.qos.logback.core.FileAppender">
+        <file>target/api-info.log</file>
+     <!--   <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>-->
+        <append>true</append>
+        <encoder>
+            <!--      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level - %msg%n</pattern>-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+3} [%thread] %-5p %c{3}:%L - %m%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="CONSOLE-1" class="ch.qos.logback.core.ConsoleAppender">
+        <append>true</append>
+        <encoder>
+            <!--            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+3} %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ru.greg3d.ui.decorators.TracingWebDriver" level="DEBUG"
+            additivity="false">
+        <appender-ref ref="FILE-1"/>
+    </logger>
+    <logger name="ru.sibintek.ksed.api" additivity="false">
+        <appender-ref ref="FILE-2"/>
+    </logger>
+    <logger name="org.exsel.example" level="DEBUG" additivity="false">
+        <appender-ref ref="FILE-3"/>
+    </logger>
+    <logger name="io.qameta.allure.aspects" additivity="false">
+        <appender-ref ref="FILE-4"/>
+    </logger>
+
+</configuration>

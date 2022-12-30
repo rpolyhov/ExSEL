@@ -1,33 +1,42 @@
 package org.exsel.example.table.UEFA.helpers;
 
 import com.codeborne.selenide.WebDriverRunner;
+import org.exsel.annotations.MaxTimeOut;
 import org.exsel.example.AppManager;
 import org.exsel.example.table.UEFA.elements.СoefficientsTableUefa;
 import org.exsel.ui.helpers.GridHelper;
+import org.exsel.waitings.Until;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class UefaTableHelper {
+public   class UefaTableHelper {
+    public static Logger LOGGER = LoggerFactory.getLogger(UefaTableHelper.class);
     AppManager app;
-
+    List<СoefficientsTableUefa> table;
+    int size;
     UefaTableHelper(AppManager app) {
         this.app = app;
     }
-
-    public Integer getSize() throws InterruptedException {
-        List<СoefficientsTableUefa> table=new GridHelper()
-                .toModelList(WebDriverRunner.getWebDriver(), СoefficientsTableUefa.class);
-        int size = table.size();
-
+    @MaxTimeOut(seconds = 123123)
+    public <T> Integer getSize()  {
+        LOGGER.info("getSize");
+        table = getTable(new СoefficientsTableUefa());// считываем таблицу
         while (true) {
-            Thread.sleep(5000);
-            table.get(table.size()-1).position.scrollIntoView(true);
-            table = new GridHelper()
-                    .toModelList(WebDriverRunner.getWebDriver(), СoefficientsTableUefa.class);
-            if (table.size() == size) break;
-            else size = table.size();
+            size = table.size();// определяем кол-во строк
+            if (size!=0) table.get(size-1).position.scrollIntoView(true);// Скролируем до последней строки
+            if (!Until.isTrueStatic(5000, () ->
+                    (table = getTable(new СoefficientsTableUefa())).size() != size)) break; // Если в течении таймаута новые не загрузились, тогда считаем, что вся таблица загружена
         }
         return table.size();
+    }
+
+    private  <T> List<T> getTable(T table) {
+        return (List<T>) new GridHelper()
+                .toModelList(WebDriverRunner.getWebDriver(), table.getClass());
 
     }
+
+
 }
