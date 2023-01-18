@@ -16,10 +16,6 @@ import java.util.function.Supplier;
 import static org.exsel.tools.allure.Attach.step;
 import static org.hamcrest.core.Is.is;
 
-
-/**
- * Created by SBT-Konovalov-GV on 28.11.2016.
- */
 public class Until {
 
     private static Logger log = LoggerFactory.getLogger(Until.class);

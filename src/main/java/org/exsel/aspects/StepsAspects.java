@@ -1,4 +1,4 @@
-package io.qameta.allure.aspects;
+package org.exsel.aspects;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;

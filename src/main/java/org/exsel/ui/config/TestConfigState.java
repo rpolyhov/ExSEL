@@ -7,7 +7,7 @@ import com.google.inject.Provider;
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.ConfigFactory;
 
-import static io.qameta.allure.aspects.StepsAspects.maxTimeoutInt;
+import static org.exsel.aspects.StepsAspects.maxTimeoutInt;
 
 public class TestConfigState {
 

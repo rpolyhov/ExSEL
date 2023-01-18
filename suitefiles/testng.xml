@@ -2,7 +2,7 @@
 <suite name="Regress" parallel="classes" verbose="1" thread-count = "2">
     <test name="ALL">
         <classes>
-            <class name="org.exsel.example.table.TestTable"></class>
+            <class name="org.exsel.example.typicals.TestTypicals"></class>
 
         </classes>
     </test>
