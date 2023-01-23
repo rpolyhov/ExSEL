@@ -15,7 +15,8 @@ public abstract class MenuAbstractSE extends ElementsContainerWrapper implements
     protected abstract String getXpathExpandElement();
 
     protected SelenideElement getExpandElement() {
-        return getElement(getXpathExpandElement());
+        SelenideElement el= getElement(getXpathExpandElement());
+        return el;
     }
 
     protected SelenideElement getElement(String xpath) {

@@ -2,6 +2,8 @@ package org.exsel.example.typicals;
 
 
 import com.codeborne.selenide.Condition;
+import org.assertj.core.api.Assertions;
+
 import org.exsel.example.BaseTest;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
@@ -20,8 +22,11 @@ public class TestTypicals extends BaseTest {
         app.theInternet.pages.mainPage.inputs.setValue(text);
 
         app.theInternet.pages.mainPage.inputs.shouldBe(Condition.exactValue(text));
-        //или
+        //или hamcrest
         assertThat(app.theInternet.pages.mainPage.inputs.val(),is(text));
+       //или assertj
+       Assertions.assertThat(app.theInternet.pages.mainPage.inputs.val())
+                .isEqualTo(text);
 
     }
    @Test
@@ -29,14 +34,19 @@ public class TestTypicals extends BaseTest {
         String selectValue="Option 1";
         open("https://the-internet.herokuapp.com/dropdown");
         app.theInternet.pages.mainPage.dropdown.selectOption(selectValue);
+
         app.theInternet.pages.mainPage.dropdown.shouldBe(Condition.text(selectValue));
         //или
         assertThat(app.theInternet.pages.mainPage.dropdown.getSelectedOptionText(),is(selectValue));
+       //или assertj
+       Assertions.assertThat(app.theInternet.pages.mainPage.dropdown.getSelectedOptionText())
+               .isEqualTo(selectValue);
     }
     @Test
     public void testCheckboxes()  {
         open("https://the-internet.herokuapp.com/checkboxes");
         app.theInternet.pages.mainPage.checkboxes.check(1);
+
         app.theInternet.pages.mainPage.checkboxes.uncheck(2);
        }
     @Test
@@ -53,7 +63,11 @@ public class TestTypicals extends BaseTest {
         action.perform();
 
         app.theInternet.pages.mainPage.horizontal_slider.value.shouldBe(Condition.text(Double.toString(value)));
-
+        //или
+        assertThat(app.theInternet.pages.mainPage.horizontal_slider.value.getText(),is(Double.toString(value)));
+        //или assertj
+        Assertions.assertThat(app.theInternet.pages.mainPage.horizontal_slider.value.getText())
+                .isEqualTo(Double.toString(value));
     }
     @Test
     public void testInputsPlayWright() {

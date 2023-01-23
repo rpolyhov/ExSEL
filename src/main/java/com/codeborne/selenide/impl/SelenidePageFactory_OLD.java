@@ -37,8 +37,8 @@ import static org.exsel.ui.FindByParametrisedAnnotationHandler.isFindByParametri
  * @see <a href="https://github.com/SeleniumHQ/selenium/wiki/PageObjects">Page Objects Wiki</a>
  */
 @ParametersAreNonnullByDefault
-public class SelenidePageFactory implements PageObjectFactory {
-    private static final Logger logger = LoggerFactory.getLogger(SelenidePageFactory.class);
+public class SelenidePageFactory_OLD implements PageObjectFactory {
+    private static final Logger logger = LoggerFactory.getLogger(SelenidePageFactory_OLD.class);
 
     @Override
     @CheckReturnValue

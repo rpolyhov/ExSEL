@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 
 public class TestMenu extends BaseTest {
-    //@Test
+   // @Test
     public void testMenuX5(){
        // многоуровневое меню  без кликов "Инвесторам(hover)- Акции (hover) -Дивиденты (click)"
        open("https://www.x5.ru");
@@ -26,15 +26,14 @@ public class TestMenu extends BaseTest {
         app.decathlonManager.pages.mainPage.Ботинки_menu.click();
     }
 
-   // @Test
-
+    @Test
     public void testMenuAspro() throws InterruptedException {
         //раскрывающее по клику меню
         open("https://aspro.ru/docs/course/course46/chapter027/?LESSON_PATH=2154.27");
         app.aspro.pages.mainPage.menuMainAspro.Каталог_Menu.Свойства_menu.Группировка_свойств_menu.select();
      }
 
-   // @Test
+    // @Test
     public void testMenuXoops() throws InterruptedException {
         //http://xoops.ws/modules/instruction/page.php?id=857
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
