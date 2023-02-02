@@ -1,17 +1,18 @@
 package org.exsel.example.typicals.TheInternet.pages;
 
-import org.exsel.ui.ElementsContainerWrapper;
-import org.exsel.ui.PageDecorator;
+import org.exsel.example.typicals.Demoqa.pages.ElementsPage;
 
 import static com.codeborne.selenide.Selenide.page;
 
 public class TheInternetPages {
     public MainPageTheInternet mainPage;
-    public TheInternetPages(){
-        mainPage=new MainPageTheInternet();
-        mainPage = page(MainPageTheInternet.class);
-        PageDecorator.setParentToObject(mainPage, ElementsContainerWrapper.class);
-    }
+    public InputsPage inputsPage;
+    public DragAndDropPage dragAndDropPage;
+    public UploadPage uploadPage;
 
+    public JqueryUIMenuPage jqueryUIMenuPage;
+
+    public  TinymcePage tinymcePage;
+    public DownloadSecure downloadSecure;
 
 }

@@ -20,7 +20,8 @@ public class HorizontalSlider extends ElementsContainerWrapper {
     public Double getMax() {
         return Double.valueOf(input.getAttribute("max"));
     }
-    public Double getAttribute(String att) {
+
+    public Double getAttributeValue(String att) {
         return Double.valueOf(input.getAttribute(att));
     }
 }

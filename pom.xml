@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.example</groupId>
 	<artifactId>ExSEL</artifactId>
-	<version>1.0.6</version>
+	<version>1.0.7</version>
 
     <properties>
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
@@ -120,7 +120,7 @@
             <artifactId>testng</artifactId>
             <version>6.14.3</version>
         </dependency>
-    <dependency>
+<!--    <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
         <version>${selenium.version}</version>
@@ -129,12 +129,18 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
             <version>${selenium.version}</version>
-        </dependency>
-        <dependency>
+        </dependency>-->
+ <!--       <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>6.10.3</version><!-- не забываем поменять SelenidePageFactory_NEW-->
+            <version>6.10.3</version>&lt;!&ndash; не забываем поменять SelenidePageFactory_NEW&ndash;&gt;
+        </dependency>-->
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide-testng</artifactId>
+            <version>6.11.2</version><!-- не забываем поменять SelenidePageFactory_NEW-->
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -201,6 +207,13 @@
             <version>3.24.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>4.2.0</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 

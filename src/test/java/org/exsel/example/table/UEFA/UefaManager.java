@@ -8,9 +8,9 @@ import org.exsel.example.table.UEFA.pages.UefaPages;
 public class UefaManager {
     public UefaPages pages;
     public UefaHelpers helpers;
-    public UefaManager(AppManager app) {
+    public UefaManager() {
         pages = new UefaPages();
-        helpers=new UefaHelpers(app);
+        helpers=new UefaHelpers();
     }
 
 }

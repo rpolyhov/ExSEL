@@ -13,12 +13,9 @@ import java.util.List;
 
 public   class UefaTableHelper {
     public static Logger LOGGER = LoggerFactory.getLogger(UefaTableHelper.class);
-    AppManager app;
     List<СoefficientsTableUefa> table;
     int size;
-    UefaTableHelper(AppManager app) {
-        this.app = app;
-    }
+
     @MaxTimeOut(seconds = 123123)
     public <T> Integer getSize()  {
         LOGGER.info("getSize");

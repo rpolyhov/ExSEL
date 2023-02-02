@@ -4,8 +4,8 @@ import org.exsel.example.AppManager;
 
 public class UefaHelpers {
     public  UefaTableHelper uefaTableHelper;
-    public UefaHelpers(AppManager app) {
-        uefaTableHelper=new UefaTableHelper(app);
+    public UefaHelpers() {
+        uefaTableHelper=new UefaTableHelper();
     }
 
 

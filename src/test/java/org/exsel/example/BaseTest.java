@@ -46,7 +46,6 @@ public class BaseTest {
         Configuration.pageLoadStrategy=NONE.toString();
         WebDriverRunner.addListener(new WebDriverListener() {
              public void beforeAnyWebDriverCall(WebDriver driver, Method method, Object[] args)   {
-                 System.out.println("method"+method.getName());
                  Until.assertTimeout(60000, 250)
                          .assertThat(()-> WaitHelper.uiIsReady(driver));
 

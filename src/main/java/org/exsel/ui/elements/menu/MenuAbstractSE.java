@@ -23,7 +23,7 @@ public abstract class MenuAbstractSE extends ElementsContainerWrapper implements
         return this.getSelf().shouldBe(Condition.visible, Duration.ofMillis(10000)).$x(xpath).shouldBe(Condition.visible, Duration.ofMillis(10000));
     }
 
-    protected void expand(){
+    public void expand(){
         if (!isExpanded()) getExpandElement().click();
     }
     protected void collaps() {
@@ -52,4 +52,6 @@ public abstract class MenuAbstractSE extends ElementsContainerWrapper implements
         if (this.getParent() instanceof MenuAbstractSE)
             ((E) this.getParent()).selectItems(list);
     }
+
+
 }

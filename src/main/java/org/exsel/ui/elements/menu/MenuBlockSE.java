@@ -16,7 +16,7 @@ public  class MenuBlockSE extends MenuAbstractSE  {
     protected boolean isCollapsed() {
         return isExpanded();
     }
-    protected void expand(){if (!isExpanded()) getExpandElement().hover();
+    public void expand(){if (!isExpanded()) getExpandElement().hover();
     }
 
 }

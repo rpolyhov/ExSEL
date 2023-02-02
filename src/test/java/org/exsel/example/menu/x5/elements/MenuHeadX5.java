@@ -38,7 +38,7 @@ public class MenuHeadX5 extends ElementsContainerWrapper {
             return ".//parent::li";
         }
 
-        protected void expand(){
+        public void expand(){
             if (!isExpanded()) getExpandElement().hover();
         }
     }

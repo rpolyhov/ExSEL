@@ -3,9 +3,9 @@
     <test name="ALL">
         <classes>
 <!--
-            <class name="org.exsel.example.typicals.TestTypicals"></class>
+            <class name="org.exsel.example.typicals.TestTheInternetTypicals"></class>
 -->
-            <class name="org.exsel.example.menu.TestMenu"></class>
+            <class name="org.exsel.example.typicals.TestDemoqaTypicals"></class>
         </classes>
     </test>
 </suite>

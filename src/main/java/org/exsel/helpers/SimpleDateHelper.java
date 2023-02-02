@@ -144,14 +144,16 @@ public class SimpleDateHelper {
 
     // cal.add(Calendar.DAY_OF_YEAR, 30);
     // добавить к текущей дате день/дни
-    public SimpleDateHelper addDay(){
+ /*   public SimpleDateHelper addDay(){
         return addDay(1);
-    }
+    }*/
 
-    public SimpleDateHelper addDay(int increment){
+  /*  public SimpleDateHelper addDay(int increment){
         calendar.add(Calendar.DAY_OF_YEAR, increment);
         return this;
-    }
+    }*/
+
+
 
     public SimpleDateHelper addMonth(){
         return addMonth(1);
