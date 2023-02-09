@@ -211,6 +211,11 @@
             <artifactId>awaitility</artifactId>
             <version>4.2.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>pdf-test</artifactId>
+            <version>1.8.0</version>
+        </dependency>
 
 
     </dependencies>
