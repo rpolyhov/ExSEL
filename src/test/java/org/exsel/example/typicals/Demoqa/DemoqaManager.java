@@ -1,7 +1,7 @@
 package org.exsel.example.typicals.Demoqa;
 
 
-import org.exsel.example.Service;
+import org.exsel.Service;
 import org.exsel.example.typicals.Demoqa.pages.DemoqaPages;
 
 public class DemoqaManager {

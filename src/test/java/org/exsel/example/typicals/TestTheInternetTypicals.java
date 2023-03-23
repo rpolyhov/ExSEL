@@ -7,6 +7,8 @@ import com.codeborne.selenide.testng.SoftAsserts;
 import org.assertj.core.api.Assertions;
 
 import org.assertj.core.api.SoftAssertions;
+import org.awaitility.core.ConditionEvaluationListener;
+import org.awaitility.core.EvaluatedCondition;
 import org.exsel.annotations.MaxTimeOut;
 import org.exsel.example.BaseTest;
 
@@ -23,6 +25,7 @@ import java.io.FileNotFoundException;
 import static com.codeborne.selenide.AssertionMode.SOFT;
 import static com.codeborne.selenide.AssertionMode.STRICT;
 import static com.codeborne.selenide.Selenide.*;
+import static java.util.concurrent.TimeUnit.MINUTES;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import static org.awaitility.Awaitility.await;
@@ -33,10 +36,10 @@ import static org.hamcrest.Matchers.*;
 public class TestTheInternetTypicals extends BaseTest {
 
     public TestTheInternetTypicals() {
-            Configuration.baseUrl="http://the-internet.herokuapp.com";
+        Configuration.baseUrl = "http://the-internet.herokuapp.com";
     }
 
-        //@Test
+    //@Test
     public void testInputs() {
         open("/inputs");
         String text = "123";
@@ -147,14 +150,17 @@ public class TestTheInternetTypicals extends BaseTest {
         Assertions.assertThat(app.theInternet.pages.uploadPage.uploadResult.getText())
                 .contains(result).contains(fileName);
         // или assertj c awaitility
-        await("Здесь указывается алиас")
+        await("Здесь указывается алиас").
+                conditionEvaluationListener( beforeEvaluation -> {})
+
                 .pollInSameThread()
                 .during(19, SECONDS)
                 .atMost(20, SECONDS)
                 .pollInterval(0, SECONDS)
                 .pollDelay(0, SECONDS)
                 //.catchUncaughtExceptions()
-                .ignoreException(NullPointerException.class).untilAsserted(
+                .ignoreException(NullPointerException.class)
+                .untilAsserted(
                         () -> {
                             Assertions.assertThat(app.theInternet.pages.uploadPage.uploadResult.getText())
                                     .contains(result).contains(fileName);
@@ -179,19 +185,20 @@ public class TestTheInternetTypicals extends BaseTest {
 
     //@Test
     @MaxTimeOut(seconds = 60000)
-    public void tinymce()  {
+    public void tinymce() {
         open("/tinymce");
         switchTo().frame(app.theInternet.pages.tinymcePage.frame.getSelf());
         app.theInternet.pages.tinymcePage.body.shouldBe(Condition.text("Your content goes here."));
         switchTo().defaultContent();
     }
+
     @Test
     public void download_secure() throws FileNotFoundException {
         open("/download_secure",
                 AuthenticationType.BASIC,
                 new BasicAuthCredentials("admin", "admin"));
         app.theInternet.pages.downloadSecure.linkText_txt.click();
-        File file= app.theInternet.pages.downloadSecure.linkText_txt.download();
+        File file = app.theInternet.pages.downloadSecure.linkText_txt.download();
 
         await("Проверка сохранения файла").pollInSameThread()
                 .atMost(getMaxTimeout(), SECONDS)

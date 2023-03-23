@@ -1,8 +1,6 @@
 package org.exsel.example.typicals.Demoqa.pages;
 
-import com.codeborne.selenide.ElementsContainer;
-import com.codeborne.selenide.SelenideElement;
-import org.exsel.example.WebPage;
+import org.exsel.WebPage;
 import org.exsel.ui.ElementsContainerWrapper;
 import org.openqa.selenium.support.FindBy;
 

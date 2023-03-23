@@ -11,9 +11,18 @@ public class DateHelper {
     public static String getCurrent(String toFormat) {
         return getCurrentDate().format(DateTimeFormatter.ofPattern(toFormat)) ;
     }
+    public static String getCurrentDateTime(String toFormat) {
+        return getCurrentDateTime().format(DateTimeFormatter.ofPattern(toFormat)) ;
+    }
+
     public static LocalDate getCurrentDate() {
         return LocalDate.now();
     }
+
+    public static LocalDateTime getCurrentDateTime() {
+        return LocalDateTime.now();
+    }
+
 
     public static String addDays(LocalDate date,long days,String outFormat) {
         return date.plusDays(days).format(DateTimeFormatter.ofPattern(outFormat)) ;

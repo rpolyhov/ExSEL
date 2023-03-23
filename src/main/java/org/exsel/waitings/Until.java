@@ -105,14 +105,16 @@ public class Until {
                 if (f.get())
                     return true;
             } catch (Throwable e) {
-                if (until.throwable)
-                    if (until.toThrow.length == 0)
-                        throw e;
-//                    if(until.toThrow.isAssignableFrom(e.getClass()))
-                    else
-                        for (Class toThrow : until.toThrow)
-                            if (toThrow.isAssignableFrom(e.getClass()))
-                                throw e;
+                if (until.throwableThrow && until.ignore.length != 0) {
+                    for (Class ignore : until.ignore)
+                        if (ignore.isAssignableFrom(e.getClass()))
+                            until.skip = true;
+                }
+
+                if (!until.skip && until.throwableThrow && until.toThrow.length != 0)
+                    for (Class toThrow : until.toThrow)
+                        if (toThrow.isAssignableFrom(e.getClass()))
+                            throw e;
             }
             try {
                 Thread.sleep(until.pullingInterval);
@@ -146,12 +148,10 @@ public class Until {
 
     private long timeout = 1000;
     private int pullingInterval = 500;
-//    private boolean throwable = false;
-//    private Class [] toThrow = {};
-
-    private boolean throwable = true;
-    private Class[] toThrow = {Error.class};
-
+    private boolean throwableThrow = true;
+    private boolean skip = false;
+    private Class[] toThrow = {};
+    private Class[] ignore = {};
     private Runnable ifNot;
 
     private Until setTimeout(long timeout) {
@@ -164,22 +164,37 @@ public class Until {
         return this;
     }
 
-    public Until throwable() {
-        this.throwable = true;
+    public Until throwableThrow() {
+        this.throwableThrow = true;
         return this;
     }
 
-    public Until throwable(Boolean value) {
-        this.throwable = value;
+    public Until throwableIgnore() {
+        this.throwableThrow = false;
         return this;
     }
 
-    public Until throwable(Class toThrow) {
-        return throwable(new Class[]{toThrow});
+    public Until throwableIgnore(Class ignore) {
+        return throwableIgnore(new Class[]{ignore});
     }
 
-    public Until throwable(Class... toThrow) {
-        this.throwable = true;
+    public Until throwableIgnore(Class... ignore) {
+        this.throwableThrow = true;
+        this.ignore = ignore;
+        return this;
+    }
+
+    public Until throwableThrow(Boolean value) {
+        this.throwableThrow = value;
+        return this;
+    }
+
+    public Until throwableThrow(Class toThrow) {
+        return throwableThrow(new Class[]{toThrow});
+    }
+
+    public Until throwableThrow(Class... toThrow) {
+        this.throwableThrow = true;
         this.toThrow = toThrow;
         return this;
     }
@@ -228,7 +243,7 @@ public class Until {
     }
 
     public <T> void assertThat(String reason, Supplier<Boolean> f) {
-        String intReason="";
+        String intReason = "";
         boolean actual = false;
         try {
             actual = isTrueStatic(this, f);
@@ -236,7 +251,7 @@ public class Until {
             intReason = e.getMessage();
         }
 
-        MatcherAssert.assertThat(String.format("timeout %s [%s] ms %s", reason,intReason, this.timeout), actual, is(true));
+        MatcherAssert.assertThat(String.format("timeout %s [%s] ms %s", reason, intReason, this.timeout), actual, is(true));
     }
 
     @SneakyThrows

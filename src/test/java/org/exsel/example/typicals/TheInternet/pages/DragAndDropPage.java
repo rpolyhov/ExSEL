@@ -1,6 +1,6 @@
 package org.exsel.example.typicals.TheInternet.pages;
 
-import org.exsel.example.WebPage;
+import org.exsel.WebPage;
 import org.exsel.example.typicals.TheInternet.elements.DragAndDrop;
 import org.exsel.ui.annotations.FindByPar;
 

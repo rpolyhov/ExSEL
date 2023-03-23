@@ -1,4 +1,4 @@
-package org.exsel.example;
+package org.exsel;
 
 public interface WebPage {
 }

@@ -1,9 +1,7 @@
 package org.exsel.example.typicals.TheInternet.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import org.exsel.example.WebPage;
-import org.exsel.example.typicals.TheInternet.elements.DragAndDrop;
-import org.exsel.ui.annotations.FindByPar;
+import org.exsel.WebPage;
 import org.openqa.selenium.support.FindBy;
 
 public class UploadPage implements WebPage {

@@ -1,6 +1,6 @@
 package org.exsel.example.typicals.TheInternet.pages;
 
-import org.exsel.example.WebPage;
+import org.exsel.WebPage;
 import org.exsel.example.typicals.TheInternet.elements.TinymceBody;
 import org.exsel.example.typicals.TheInternet.elements.TinymceFrame;
 

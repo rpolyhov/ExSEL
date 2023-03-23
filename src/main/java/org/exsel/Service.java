@@ -1,5 +1,6 @@
-package org.exsel.example;
+package org.exsel;
 
+import com.codeborne.selenide.Selenide;
 import org.exsel.ui.ElementsContainerWrapper;
 import org.exsel.ui.PageDecorator;
 

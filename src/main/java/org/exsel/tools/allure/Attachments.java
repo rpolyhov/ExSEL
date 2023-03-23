@@ -3,6 +3,10 @@ package org.exsel.tools.allure;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
 import org.testng.Assert;
 
 import java.io.File;
@@ -42,6 +46,11 @@ public class Attachments {
     @Attachment(value = "{title}", type = "image/png")
     public static byte[] savePngAttachment(String title, byte[] bytes){
         return bytes;
+    }
+    @Attachment("screenshot2")
+    public static byte[] takeScreenshot2(WebDriver driver) {
+        return ((TakesScreenshot) new Augmenter().augment(driver))
+                .getScreenshotAs(OutputType.BYTES);
     }
 
     @Attachment(value = "png attachment", type = "image/png")

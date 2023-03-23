@@ -3,7 +3,7 @@ package org.exsel.example.typicals.TheInternet.pages;
 
 import com.codeborne.selenide.SelenideElement;
 
-import org.exsel.example.WebPage;
+import org.exsel.WebPage;
 import org.exsel.example.typicals.TheInternet.elements.Checkboxes;
 import org.exsel.example.typicals.TheInternet.elements.HorizontalSlider;
 import org.openqa.selenium.support.FindBy;

@@ -1,7 +1,7 @@
 package org.exsel.example.typicals.TheInternet;
 
 
-import org.exsel.example.Service;
+import org.exsel.Service;
 import org.exsel.example.typicals.TheInternet.helpers.TheInternetHelpers;
 import org.exsel.example.typicals.TheInternet.pages.TheInternetPages;
 

@@ -1,8 +1,7 @@
 package org.exsel.example.typicals.Demoqa.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import org.exsel.example.WebPage;
-import org.exsel.example.typicals.Demoqa.elements.SelectDiv;
+import org.exsel.WebPage;
 import org.exsel.example.typicals.Demoqa.elements.SortableDiv;
 import org.exsel.ui.annotations.FindByPar;
 import org.openqa.selenium.support.FindBy;
