@@ -3,10 +3,10 @@
   <groupId>org.example</groupId>
   <artifactId>ExSEL</artifactId>
   <versioning>
-    <release>1.0.9</release>
+    <release>1.1.0</release>
     <versions>
-      <version>1.0.9</version>
+      <version>1.1.0</version>
     </versions>
-    <lastUpdated>20230210102616</lastUpdated>
+    <lastUpdated>20230324094535</lastUpdated>
   </versioning>
 </metadata>
