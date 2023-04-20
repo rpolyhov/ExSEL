@@ -145,7 +145,7 @@
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide-testng</artifactId>
-            <version>6.11.2</version><!-- не забываем поменять SelenidePageFactory_NEW-->
+            <version>6.12.3</version><!-- не забываем поменять SelenidePageFactory_NEW-->
         </dependency>
 
         <dependency>
