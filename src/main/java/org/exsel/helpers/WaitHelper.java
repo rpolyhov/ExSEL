@@ -10,12 +10,25 @@ import org.openqa.selenium.WebDriver;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.exsel.helpers.JsoupHelper.getBodyHtml;
+import static org.exsel.helpers.JsoupHelper.parseXml;
 import static org.jsoup.parser.Parser.parseXmlFragment;
 
 public class WaitHelper {
     private static ThreadLocal<Long> time = new ThreadLocal<>();
-
+    private static String load;
     public static boolean uiIsReady(WebDriver driver) {
+        if (isHttpIsActive(driver)) return false;
+
+        String htmlBody = getBodyHtml(driver);
+        Document docBody = parseXml(htmlBody);
+        handleFailDialog(docBody);
+        if (isLoading(docBody)) return false;
+        handleException(docBody);
+        return (boolean) ((JavascriptExecutor) driver).executeScript(String.format("return (typeof($) === 'undefined') ? true: $.active == 0"));
+    }
+    public static boolean uiIsReady(WebDriver driver,String loadSelector) {
+        load=loadSelector;
         if (isHttpIsActive(driver)) return false;
 
         String htmlBody = getBodyHtml(driver);
@@ -45,6 +58,8 @@ public class WaitHelper {
         Elements els = docBody.select("#message_c[style*='visibility: visible'] .wait");
         for (Element l : els)
             if (l.text().contains("Загрузка...")) return true;
+        if (load!=null&&docBody.select(load).size()>0)
+            return true;
 
         Elements elAll = docBody.select("img[src*='loading.gif']");
         Elements elHidden = docBody.select("div[style*='visibility: hidden;'] img[src*='loading.gif']");
@@ -54,21 +69,9 @@ public class WaitHelper {
         return isLoading;
     }
 
-    private static String getBodyHtml(WebDriver driver) {
-        return ((JavascriptExecutor) driver).executeScript("return document.getElementsByTagName('body').item(0).innerHTML").toString();
-    }
 
-    public static Document parseXml(String bodyHtml) {
-        String baseUri = "";
-        Document doc = new Document(baseUri);
-        List<Node> nodeList = parseXmlFragment(bodyHtml, baseUri);
-        Node[] nodes = nodeList.toArray(new Node[nodeList.size()]);
-        for (int i = nodes.length - 1; i > 0; i--)
-            nodes[i].remove();
-        for (Node node : nodes)
-            doc.appendChild(node);
-        return doc;
-    }
+
+
 
     private static boolean isHttpIsActive(WebDriver driver) {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
@@ -89,10 +92,11 @@ public class WaitHelper {
 
 
         if (requestsCount > 1) {
-            System.err.println("requestsCount----" + requestsCount);
+            //System.err.println("requestsCount----" + requestsCount);
             return true;
 
-        } else { System.err.println("requestsCount----" + requestsCount);
+        } else {
+            //System.err.println("requestsCount----" + requestsCount);
             return false;
         }
     }

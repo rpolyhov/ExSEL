@@ -3,31 +3,26 @@ package org.exsel.ui.listeners;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Allure;
 import io.qameta.allure.model.Link;
-import lombok.SneakyThrows;
 import org.aeonbits.owner.ConfigFactory;
-import org.exsel.DriverFactory;
-import org.exsel.ServerConfig;
+import org.exsel.SelenoidSettingFactory;
+import org.exsel.ServerSelenoidConfig;
 import org.exsel.annotations.DependsOnGroup;
 import org.exsel.annotations.DependsOnMethod;
 import org.exsel.annotations.Skip;
-import org.exsel.annotations.Stand;
 import org.exsel.helpers.SimpleDateHelper;
 import org.exsel.tools.ScreenShots;
 import org.exsel.tools.allure.Attach;
-import org.exsel.ui.config.TestConfigState;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import org.exsel.tools.allure.AttachVideo;
+import org.exsel.tools.allure.Attachments;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.remote.Augmenter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.*;
 import org.testng.annotations.Test;
 
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -35,26 +30,15 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.exsel.tools.allure.Attachments.*;
-import static org.testng.util.Strings.isNullOrEmpty;
 
-/**
- * Created by Greg3D on 26.12.2016.
- * <p>
- * слушаеи и запоминаем состояние наших тестов, аннотации DependsOnMethod и DependsOnGroup работают ТОЛЬКО через этот лиссенер
- */
 public class TestNGListener extends TestListenerAdapter implements IInvokedMethodListener {
-
     private static ThreadLocal<WebDriver> localThreadDriver = new ThreadLocal<WebDriver>();
 
     private static Logger log = LoggerFactory.getLogger(TestNGListener.class);
 
     public static boolean doScreenShots = true;
 
-    public static String videoFolder = null;
-    //private static VideoRecorder videoRecorder;
-
-    //    private static long TEST_TIMEOUT = 600_000L; // по умолчанию - 600 секунд
-    private static long TEST_TIMEOUT = TimeUnit.MILLISECONDS.toMinutes(10); // по умолчанию - 10 минут(600сек)
+     private static long TEST_TIMEOUT = TimeUnit.MILLISECONDS.toMinutes(10); // по умолчанию - 10 минут(600сек)
 
     public synchronized static void setDriver(WebDriver driver) {
         localThreadDriver.set(driver);
@@ -70,9 +54,10 @@ public class TestNGListener extends TestListenerAdapter implements IInvokedMetho
         Set<Method> s = new HashSet();
         super.onTestFailure(result);
         try {
-           Allure.addLinks(new Link().setName(String.format("video"))
-                   .setUrl(ConfigFactory.create(ServerConfig.class)
-                           .remoteVideos()+ DriverFactory.videoName.get()));
+/*           Allure.addLinks(new Link().setName(String.format("video"))
+                   .setUrl(ConfigFactory.create(ServerSelenoidConfig.class)
+                           .remoteVideos()+ SelenoidSettingFactory.videoName.get()));*/
+           // AttachVideo.attachAllureVideo();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
@@ -90,6 +75,7 @@ public class TestNGListener extends TestListenerAdapter implements IInvokedMetho
                 savePngAttachment(title, ScreenShots.getScreenShot());
             else
                 savePngAttachment(title, ScreenShots.getDriverScreenShotToBytes(getDriver()==null?WebDriverRunner.getWebDriver():getDriver()));
+
         } catch (Exception e) {
             log.error(e.getMessage());
         }

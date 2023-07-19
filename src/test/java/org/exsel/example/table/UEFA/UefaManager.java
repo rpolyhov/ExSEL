@@ -1,7 +1,6 @@
 package org.exsel.example.table.UEFA;
 
 
-import org.exsel.example.AppManager;
 import org.exsel.example.table.UEFA.helpers.UefaHelpers;
 import org.exsel.example.table.UEFA.pages.UefaPages;
 

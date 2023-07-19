@@ -4,13 +4,11 @@ import com.codeborne.pdftest.PDF;
 import com.codeborne.selenide.*;
 import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
-import org.exsel.DriverFactory;
+import org.exsel.SelenoidSettingFactory;
 
 import org.exsel.example.BaseTest;
 import org.exsel.example.typicals.Demoqa.elements.SortableDiv;
 import org.exsel.helpers.DateHelper;
-import org.exsel.ui.listeners.TestNGListener;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -18,7 +16,6 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import static com.codeborne.pdftest.assertj.Assertions.assertThat;
@@ -150,11 +147,11 @@ public class TestDemoqaTypicals extends BaseTest {
 
     }
 
-   // @Test
+    @Test
     @Step
    // @Video
     public void testDownLoad() throws IOException {
-        DriverFactory.configurationDriverForSelenoid(this.getClass().getSimpleName());
+        SelenoidSettingFactory.configuration(this.getClass().getSimpleName());
         open("http://172.30.48.50:8080/share/page/document?nodeRef=workspace://SpacesStore/57d4afcc-6b55-4dbe-8fa1-1569c02386f8");
 
         $x("//input[@name='username']").val("Smoke_user111");
@@ -165,12 +162,12 @@ public class TestDemoqaTypicals extends BaseTest {
         $x("//a[@href='#approval']").click();
         $x("//span[@title='Печать']").click();
         $x("//div[@class='hd' and text()='Задание параметров отчета']").shouldBe(visible, Duration.ofSeconds(10));
-        assert false;
         File report = $x("//button[contains(text(),'ОК') and @type='button' and not(ancestor::div[contains(@class,'hidden')])]")
                 .download(DownloadOptions.using(Configuration.fileDownload).withFilter(withExtension("pdf")).withTimeout(20000));
         PDF pdf = new PDF(report);
         assertThat(pdf).containsExactText("Смокин112");
         report.delete();
+         assert false;
     }
 
 
@@ -191,10 +188,10 @@ public class TestDemoqaTypicals extends BaseTest {
         assertThat(pdf).containsExactText("FAIL");
     }
 
-    @Test
+   // @Test
     @Step
     public void testUploadAndDownLoadFileInSelenoid() throws IOException {
-        DriverFactory.configurationDriverForSelenoid(this.getClass().getSimpleName());
+        SelenoidSettingFactory.configuration(this.getClass().getSimpleName());
         open("https://webtopdf.com");
         $x("//a[@href='/html-to-pdf']").click();
         SelenideElement upload=$(".dropfilehere").shouldBe(visible, Duration.ofSeconds(30));

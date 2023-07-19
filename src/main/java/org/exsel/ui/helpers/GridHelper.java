@@ -47,13 +47,13 @@ public class GridHelper {
 
         String htmlBody = getBodyHtml(driver);
         Document docBody = parseXml(htmlBody);
-        Elements tables=docBody.select(tablesAnnotation.getCssTable());
-        if (tables.size()==0) return list;
+        Elements tables = docBody.select(tablesAnnotation.getCssTable());
+        if (tables.size() == 0) return list;
         Map<String, Integer> mapColumn = getMapColumnForElement(tables.get(index - 1), tablesAnnotation);
         Iterator<Element> iterator = getRowsIteratorForElement(tables.get(index - 1), tablesAnnotation);
 
         while (iterator.hasNext()) {
-            T model = fillModel(driver, iterator.next(), clazz, ++i, mapColumn,tablesAnnotation);
+            T model = fillModel(driver, iterator.next(), clazz, ++i, mapColumn, tablesAnnotation);
             if (model != null) list.add(model);
         }
         return list;
@@ -130,7 +130,7 @@ public class GridHelper {
     }
 
     @SneakyThrows
-    public <T> T fillModel(WebDriver driver, Element row, Class<T> clazz, Integer currentRow, Map<String, Integer> headerMap,TablesAnnotation tableAnnotation) {
+    public <T> T fillModel(WebDriver driver, Element row, Class<T> clazz, Integer currentRow, Map<String, Integer> headerMap, TablesAnnotation tableAnnotation) {
         String locatorRow, locatorCell, attribute, textInAttr, columnName;
         Integer columnCount;
 
@@ -154,11 +154,11 @@ public class GridHelper {
             if (locatorCell.isEmpty())
                 if (headerMap.size() == 0 || columnName.isEmpty()) {
                     if (columnCount != 0)
-                        locatorCell = String.format((tableAnnotation.getCssCell().isEmpty()? ">td":tableAnnotation.getCssCell())+":nth-child(%s)", columnCount);
+                        locatorCell = String.format((tableAnnotation.getCssCell().isEmpty() ? ">td" : tableAnnotation.getCssCell()) + ":nth-child(%s)", columnCount);
                     else continue;
                 } else {
                     columnCount = headerMap.get(columnName);
-                    locatorCell = String.format((tableAnnotation.getCssCell().isEmpty()? ">td":tableAnnotation.getCssCell())+":nth-child(%s)", columnCount);
+                    locatorCell = String.format((tableAnnotation.getCssCell().isEmpty() ? ">td" : tableAnnotation.getCssCell()) + ":nth-child(%s)", columnCount);
                 }
 
             attribute = field.getAnnotation(TableCell.class).getAttr();
@@ -179,12 +179,24 @@ public class GridHelper {
                 HtmlElementDriverable element = new HtmlElementDriverable();
                 element.setWrappedElement(new HtmlElementDriverable());
                 ByUtils.setBy(new HtmlElementDriverable(), By.xpath(String.format("(%s)[%s]%s", locatorRow, currentRow, locatorCell)));
-            } else*/if (SelenideElement.class.equals(typeField)) {
+            } else*/
+            if (SelenideElement.class.equals(typeField)) {
                 SelenideElement element = $(String.format("%s%s", locatorRow, locatorCell));
                 field.set(model, element);
             } else if (String.class.equals(typeField)) {
                 if (isNotNullAndNotEmpty(attribute)) field.set(model, cells.attr(attribute));
                 else field.set(model, cells.text());
+            } else if (Double.class.equals(typeField)) {
+                String value= (isNotNullAndNotEmpty(attribute)) ? (cells.attr(attribute)) : (cells.text());
+                if (value.isEmpty())
+                    field.set(model, null);
+                else {
+                    try {
+                        field.set(model, Double.parseDouble(value));
+                    } catch (NumberFormatException n) {
+                        field.set(model, Double.parseDouble(value.trim().split(" ")[0]));
+                    }
+                }
             } else if (Boolean.class.equals(typeField)) {
                 if (isNotNullAndNotEmpty(attribute) && isNotNullAndNotEmpty(textInAttr))
                     field.set(model, cells.attr(attribute).contains(textInAttr));

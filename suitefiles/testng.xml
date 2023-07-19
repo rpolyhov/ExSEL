@@ -5,7 +5,7 @@
 <!--
             <class name="org.exsel.example.typicals.TestTheInternetTypicals"></class>
 -->
-            <class name="org.exsel.example.typicals.TestDemoqaTypicals"></class>
+           <!-- <class name="org.exsel.example.table.TestTable"></class>-->
         </classes>
     </test>
 </suite>

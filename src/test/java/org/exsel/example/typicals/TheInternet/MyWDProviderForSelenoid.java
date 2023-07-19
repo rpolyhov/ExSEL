@@ -26,7 +26,7 @@ public class MyWDProviderForSelenoid implements WebDriverProvider {
         @Override
         public WebDriver createDriver(@Nonnull Capabilities capabilities) {
             //Configuration.fileDownload = FOLDER;
-            //Configuration.remote = "http://192.168.1.79:4444/wd/hub";
+            //Configuration.remote = "http://192.168.1.77:4444/wd/hub";
             //Configuration.remote = "http://localhost:4444/wd/hub";
           //  Configuration.remoteConnectionTimeout = 60000;
 
@@ -46,7 +46,7 @@ public class MyWDProviderForSelenoid implements WebDriverProvider {
 
             try {
                 return  new RemoteWebDriver(
-                  URI.create("http://192.168.1.79:4444/wd/hub").toURL(),
+                  URI.create("http://192.168.1.77:4444/wd/hub").toURL(),
                         capabilities1
           );
             } catch (MalformedURLException e) {

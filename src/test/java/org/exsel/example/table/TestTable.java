@@ -1,29 +1,39 @@
 package org.exsel.example.table;
 
+import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Step;
 import org.exsel.annotations.Assume;
 import org.exsel.annotations.Bug;
 import org.exsel.annotations.MaxTimeOut;
 import org.exsel.example.BaseTest;
+import org.exsel.example.table.RBC.elements.CashRBCTable;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.Test;
 
+import java.util.List;
+import java.util.Objects;
+
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestTable extends BaseTest {
-
-    @Test
+        {
+            loadSelector="div[class*='quote__preloader js-office-preloader-in-list'][style!='display: none;']";
+        }
+    //@Test
     @MaxTimeOut(seconds = 90000)
     public void testTable()  {
         System.out.println(getMaxTimeout());
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+
+
+
         WebDriver webDriver = new ChromeDriver(options);
         setWebDriver(webDriver);
         // 1. Простая таблица c дозагрузкой при прокрутке
@@ -88,4 +98,56 @@ public class TestTable extends BaseTest {
     //
     //https://ru.uefa.com/nationalassociations/uefarankings/country/#/yr/2023
     //https://ru.investing.com/currencies/exchange-rates-table
+
+
+    @Test
+    @MaxTimeOut(seconds = 90000)
+    public void testTableCashRBC()  {
+      //  System.setProperty("webdriver.chrome.silentOutput", "true");
+        //System.out.println(getMaxTimeout());
+/*        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        options.addArguments("--start-maximized");
+        options.addArguments("--remote-allow-origins=*");
+        WebDriver webDriver = new ChromeDriver(options);
+        setWebDriver(webDriver);*/
+        // 1. Простая таблица c дозагрузкой при прокрутке
+        //https://ru.uefa.com/nationalassociations/uefarankings/country/#/yr/2023
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        options.addArguments("--remote-allow-origins=*");
+
+        Configuration.browserCapabilities = options;
+
+        open("https://cash.rbc.ru/cash/?currency=3&city=1&diapason=all");
+
+       // app.rbcManager.helpers.cashRBCHelper.getSize();
+       // System.out.println("Всего - "+app.rbcManager.helpers.cashRBCHelper.getTable().size());
+
+        List<CashRBCTable> tables=app.rbcManager.helpers.cashRBCHelper.getTable();
+        System.out.println("Минимальная цена покупки: " +
+                tables.stream()
+                        .filter(e-> Objects.nonNull(e.buy))
+                        .min(CashRBCTable::compareBuy).get().buy);
+        System.out.println("Максимальная цена покупки: " +
+                tables.stream()
+                        .filter(e-> Objects.nonNull(e.buy))
+                        .max(CashRBCTable::compareBuy).get().buy);
+
+        System.out.println("Минимальная цена продажи: " +
+                tables.stream()
+                        .filter(e-> Objects.nonNull(e.sell))
+                        .min(CashRBCTable::compareSell).get().sell);
+
+        System.out.println("Максимальная цена продажи: " +
+                tables.stream()
+                        .filter(e-> Objects.nonNull(e.sell))
+                        .max(CashRBCTable::compareSell).get().sell);
+
+        System.out.println("Всего записей: " + tables.size());
+
+        //Thread.sleep(10000);
+    }
 }

@@ -177,7 +177,8 @@ public class TestTheInternetTypicals extends BaseTest {
                 .Downloads_menu
                 .PDF_menu
                 .selectAndDownloadFile();
-        await("Проверка сохранения файла").pollInSameThread()
+        await("Проверка сохранения файла")
+                .pollInSameThread()
                 .atMost(getMaxTimeout(), SECONDS)
                 .untilAsserted(() -> file.exists());
         file.delete();

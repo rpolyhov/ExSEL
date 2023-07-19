@@ -3,10 +3,6 @@ package org.exsel.tools.allure;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.Augmenter;
 import org.testng.Assert;
 
 import java.io.File;
@@ -18,23 +14,20 @@ import java.nio.file.Paths;
 
 import static java.lang.String.format;
 
-/**
- * Created by SBT-Konovalov-GV on 04.04.2017.
- */
 public class Attachments {
 
     @Attachment(value = "{message}")
-    public static String attachMessage(String message){
+    public static String attachMessage(String message) {
         return message;
     }
 
     @Attachment(value = "{title}")
-    public static String attachMessage(String title, String message){
+    public static String attachMessage(String title, String message) {
         return message;
     }
 
     @Attachment(value = "{title}", type = "{type}")
-    public static byte[] attachMessage(String title, String text, String type){
+    public static byte[] attachMessage(String title, String text, String type) {
         return text.getBytes();
     }
 
@@ -44,17 +37,12 @@ public class Attachments {
     }
 
     @Attachment(value = "{title}", type = "image/png")
-    public static byte[] savePngAttachment(String title, byte[] bytes){
+    public static byte[] savePngAttachment(String title, byte[] bytes) {
         return bytes;
-    }
-    @Attachment("screenshot2")
-    public static byte[] takeScreenshot2(WebDriver driver) {
-        return ((TakesScreenshot) new Augmenter().augment(driver))
-                .getScreenshotAs(OutputType.BYTES);
     }
 
     @Attachment(value = "png attachment", type = "image/png")
-    public static byte[] savePngAttachment(byte[] bytes){
+    public static byte[] savePngAttachment(byte[] bytes) {
         return bytes;
     }
 
@@ -79,20 +67,20 @@ public class Attachments {
     }
 
     @Attachment(value = "xml attachment", type = "image/svg+xml")
-    public static byte[] saveXmlAttachment(String text){
+    public static byte[] saveXmlAttachment(String text) {
         return text.getBytes();
     }
 
     @Attachment(value = "{name}", type = "image/svg+xml")
-    public static byte[] saveXmlAttachment(String name, String text){
+    public static byte[] saveXmlAttachment(String name, String text) {
         //return text.getBytes(StandardCharsets.UTF_8);
         return text.getBytes();
     }
 
     @Attachment(value = "{name}", type = "text/html")
-    public static byte[] saveHtmlAttachment(String name, String text){
+    public static byte[] saveHtmlAttachment(String name, String text) {
         StringBuilder sb = new StringBuilder();
-        if(!text.toLowerCase().contains("/html")) {
+        if (!text.toLowerCase().contains("/html")) {
             sb.append("<!DOCTYPE html>\n" +
                     "<html lang=\"ru-RU\">\n" +
                     "<meta charset=\"utf-8\">\n" +
@@ -102,7 +90,7 @@ public class Attachments {
             sb.append("\n\t\t</tbody>" +
                     "\n\t</table>" +
                     "\n</html>");
-        }else
+        } else
             sb.append(text);
         return sb.toString().getBytes();
     }
@@ -133,11 +121,11 @@ public class Attachments {
         return Files.readAllBytes(Paths.get(resource.toURI()));
     }
 
-    public static void attachText(String label, String text){
+    public static void attachText(String label, String text) {
         Allure.addAttachment(label, "text/plain", text);
     }
 
-    public static void attachXml(String label, String text){
+    public static void attachXml(String label, String text) {
         Allure.addAttachment(label, "text/xml", text);
     }
 }
